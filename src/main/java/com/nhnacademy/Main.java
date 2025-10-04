@@ -6,12 +6,18 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        int A = sc.nextInt();
-        int B = sc.nextInt();
-        // ---> nextInt() 는 공백을 기준으로 토큰을 읽어옴
-        // 그래서 '1 2(엔터)' 이렇게 입력해도 각각 변수에 대입 가능
-        // 근데 그 공백이나 구분자는 버퍼에 남겨놓고 숫자만 갖고온다는거 주의하셈
-        System.out.println(A+B);
+        int H = sc.nextInt();
+        int M = sc.nextInt();
 
+        M += H * 60; // 분으로 환산후 M에 합산
+        M -= 45; // 45분 빼기
+        if(M < 0) { // 만약 날짜가 넘어간다면?
+            M = 1440 + M; // M이 음수니까 더하는게 맞음
+        }
+
+        H = M/60;
+        M %= 60;
+
+        System.out.printf("%d %d\n", H, M);
     }
 }
