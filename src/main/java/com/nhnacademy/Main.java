@@ -6,21 +6,26 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        int N = sc.nextInt();
+        int a, b, c;
+        boolean isRight = false;
+        while(true) {
+            a = sc.nextInt();
+            b = sc.nextInt();
+            c = sc.nextInt();
 
-        int result;
-        boolean isThat = false;
-        for(int i=0; i<N; i++) {
-            result = i + i/1000000 + i%1000000/100000 + i%100000/10000 + i%10000/1000 + i%1000/100 + i%100/10 + i%10;
-            if(result == N) {
-                System.out.println(i);
-                isThat = true;
-                break;
-            }
-        }
-        if(!isThat) {
-            System.out.println(0);
+            if(a==0 && b==0 && c==0) break;
+            if(a>=b && b>=c || a>=c && c>=b) isRight = isRight(a, b, c);
+            else if(c>=a && a>=b || c>=b && b>=a) isRight = isRight(c, b, a);
+            else if(b>=a && a>=c || b>=c && c>=a) isRight = isRight(b, a, c);
+            if(isRight) System.out.println("right");
+            else System.out.println("wrong");
         }
 
+
+
+
+    }
+    static boolean isRight(int max, int min1, int min2) {
+        return (Math.pow(max, 2) == Math.pow(min1, 2) + Math.pow(min2, 2));
     }
 }
