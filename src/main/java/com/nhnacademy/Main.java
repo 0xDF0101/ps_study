@@ -1,31 +1,51 @@
 package com.nhnacademy;
 
+import java.util.ArrayDeque;
 import java.util.Scanner;
+import java.util.Deque;
+import java.util.concurrent.LinkedBlockingDeque;
+
 public class Main {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        int a, b, c;
-        boolean isRight = false;
-        while(true) {
-            a = sc.nextInt();
-            b = sc.nextInt();
-            c = sc.nextInt();
+        int N = sc.nextInt();
+        Deque<Integer> stack = new ArrayDeque<>();
 
-            if(a==0 && b==0 && c==0) break;
-            if(a>=b && b>=c || a>=c && c>=b) isRight = isRight(a, b, c);
-            else if(c>=a && a>=b || c>=b && b>=a) isRight = isRight(c, b, a);
-            else if(b>=a && a>=c || b>=c && c>=a) isRight = isRight(b, a, c);
-            if(isRight) System.out.println("right");
-            else System.out.println("wrong");
+        String command;
+        int num = 0;
+        for(int i=0; i<N; i++) {
+            command = sc.next();
+            if(command.equals("push")) {
+                num = sc.nextInt();
+                stack.addFirst(num);
+            } else {
+                switch (command) {
+                    case "top" -> {
+                        if(!stack.isEmpty()) {
+                            System.out.println(stack.getFirst());
+                        } else {
+                            System.out.println(-1);
+                        }
+                    }
+                    case "pop" -> {
+                        if(!stack.isEmpty()) {
+                            System.out.println(stack.getFirst());
+                            stack.removeFirst();
+                        } else {
+                            System.out.println(-1);
+                        }
+                    }
+                    case "empty" -> {
+                        if(stack.isEmpty()) System.out.println(1);
+                        else  System.out.println(0);
+                    }
+                    case "size" -> {
+                        System.out.println(stack.size());
+                    }
+                }
+            }
         }
-
-
-
-
-    }
-    static boolean isRight(int max, int min1, int min2) {
-        return (Math.pow(max, 2) == Math.pow(min1, 2) + Math.pow(min2, 2));
     }
 }
