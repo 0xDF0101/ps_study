@@ -1,51 +1,42 @@
 package com.nhnacademy;
 
 import java.util.ArrayDeque;
-import java.util.Scanner;
 import java.util.Deque;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        int N = sc.nextInt();
-        Deque<Integer> stack = new ArrayDeque<>();
+        int T = sc.nextInt();
+        String bracket;
 
-        String command;
-        int num = 0;
-        for(int i=0; i<N; i++) {
-            command = sc.next();
-            if(command.equals("push")) {
-                num = sc.nextInt();
-                stack.addFirst(num);
+        for(int k=0; k<T; k++) {
+            bracket = sc.next();
+
+            if(isVps(bracket)) {
+                System.out.println("YES");
             } else {
-                switch (command) {
-                    case "top" -> {
-                        if(!stack.isEmpty()) {
-                            System.out.println(stack.getFirst());
-                        } else {
-                            System.out.println(-1);
-                        }
-                    }
-                    case "pop" -> {
-                        if(!stack.isEmpty()) {
-                            System.out.println(stack.getFirst());
-                            stack.removeFirst();
-                        } else {
-                            System.out.println(-1);
-                        }
-                    }
-                    case "empty" -> {
-                        if(stack.isEmpty()) System.out.println(1);
-                        else  System.out.println(0);
-                    }
-                    case "size" -> {
-                        System.out.println(stack.size());
-                    }
+                System.out.println("NO");
+            }
+        }
+    }
+    public static boolean isVps(String bracket) {
+        Deque<Character> stack = new ArrayDeque<>();
+        for(int i=0; i<bracket.length(); i++) {
+            char ch = bracket.charAt(i);
+
+            if(ch=='(') {
+                stack.addFirst(ch);
+            } else if(ch==')') {
+                if(stack.isEmpty()) {
+                    return false;
+                } else {
+                    stack.removeFirst();
                 }
             }
         }
+        return stack.isEmpty();
     }
 }
